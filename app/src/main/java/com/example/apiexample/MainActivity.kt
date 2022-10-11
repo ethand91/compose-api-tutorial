@@ -39,7 +39,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    MainScreen(applicationContext)
+                    MainScreen()
                 }
             }
         }
@@ -57,7 +57,7 @@ data class UserModel(
 )
 
 @Composable
-fun MainScreen(context: Context) {
+fun MainScreen() {
    Scaffold(
        topBar = {
            TopAppBar(
@@ -112,7 +112,6 @@ fun MainScreen(context: Context) {
                   Button(
                       onClick = {
                           val data = sendRequest(
-                              context = context,
                               id = id.value.text,
                               profileState = profile
                           )
@@ -133,7 +132,6 @@ fun MainScreen(context: Context) {
 }
 
 fun sendRequest(
-    context: Context,
     id: String,
     profileState: MutableState<ProfileModel>
 ) {
@@ -156,7 +154,6 @@ fun sendRequest(
 
         override fun onFailure(call: Call<UserModel?>, t: Throwable) {
             Log.e("Main", "Failed mate " + t.message.toString())
-            Toast.makeText(context, "Failed to get the data", Toast.LENGTH_SHORT).show()
         }
     })
 }
